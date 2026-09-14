@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>六顶思考帽（华文口试）</title>
+<meta name="description" content="小学华文口试自学网站，运用六顶思考帽技巧，适合三年级至六年级学生。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fffdf6;
+    --ink:#3a3a3a;
+    --muted:#7a7a7a;
+    --p3:#8ecae6;
+    --p3-dark:#5fa8cc;
+    --p4:#95d5b2;
+    --p4-dark:#6cbf8f;
+    --p5:#ffd166;
+    --p5-dark:#eab53e;
+    --p6:#ff9eb0;
+    --p6-dark:#f0728c;
+    --radius:24px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);
+    background:#fbf9f2;
+    line-height:1.6;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  /* ---------- Header ---------- */
+  header.hero{
+    padding:40px 20px 56px;
+    text-align:center;
+    background:linear-gradient(135deg,#eaf6ff 0%,#fff7e6 35%,#ffeef0 65%,#eafaf0 100%);
+    border-bottom:6px solid #fff;
+  }
+  .hat-row{
+    display:flex; justify-content:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .hat-dot{
+    width:16px; height:16px; border-radius:50%; box-shadow:0 2px 4px rgba(0,0,0,0.15);
+  }
+  header.hero h1{
+    font-size:clamp(1.6rem, 4.5vw, 2.8rem);
+    font-weight:900;
+    margin:0 0 10px;
+    letter-spacing:0.02em;
+  }
+  header.hero p.subtitle{
+    font-size:clamp(1rem, 2.2vw, 1.2rem);
+    color:var(--muted);
+    margin:0;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{
+    max-width:920px;
+    margin:0 auto;
+    padding:36px 20px;
+  }
+  h2.section-title{
+    text-align:center;
+    font-size:clamp(1.3rem, 3vw, 1.7rem);
+    margin:0 0 24px;
+    font-weight:900;
+  }
+
+  /* ---------- Intro / hats explained ---------- */
+  .intro-card{
+    background:var(--cream);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.06);
+  }
+  .intro-card img{
+    border-radius:16px;
+    margin:0 auto 18px;
+  }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .chip{
+    display:flex; align-items:center; gap:8px;
+    background:#fff; border-radius:999px; padding:8px 14px;
+    font-size:0.9rem; font-weight:500;
+    box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  }
+  .chip .dot{ width:14px; height:14px; border-radius:50%; flex:none; }
+  .dot.white{ background:#f2f2f2; border:2px solid #ddd; }
+  .dot.red{ background:#ff6b6b; }
+  .dot.black{ background:#3a3a3a; }
+  .dot.yellow{ background:#ffd166; }
+  .dot.green{ background:#63c988; }
+  .dot.blue{ background:#5fa8cc; }
+
+  /* ---------- Level accordion ---------- */
+  .levels{ display:flex; flex-direction:column; gap:16px; }
+  details.level{
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,0.06);
+    background:var(--cream);
+  }
+  details.level summary{
+    list-style:none;
+    cursor:pointer;
+    padding:20px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:1.2rem; font-weight:700;
+    color:#1a1a1a;
+    user-select:none;
+  }
+  details.level summary::-webkit-details-marker{ display:none; }
+  details.level summary .arrow{
+    font-size:1.1rem; transition:transform 0.25s ease;
+  }
+  details.level[open] summary .arrow{ transform:rotate(90deg); }
+
+  details.level[data-level="p3"] summary{ background:var(--p3); }
+  details.level[data-level="p4"] summary{ background:var(--p4); }
+  details.level[data-level="p5"] summary{ background:var(--p5); }
+  details.level[data-level="p6"] summary{ background:var(--p6); }
+
+  .level-body{
+    padding:20px 24px 26px;
+  }
+  .lesson-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:16px;
+  }
+  .lesson-card{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    background:#fff; border-radius:18px; padding:18px 12px;
+    text-decoration:none; color:var(--ink);
+    box-shadow:0 4px 10px rgba(0,0,0,0.06);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .lesson-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+  }
+  .lesson-card .icon{
+    width:64px; height:64px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:30px;
+    overflow:hidden;
+  }
+  .lesson-card .icon img{
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  details.level[data-level="p3"] .icon{ background:#e3f3fb; }
+  details.level[data-level="p4"] .icon{ background:#e9f8ef; }
+  details.level[data-level="p5"] .icon{ background:#fff6e0; }
+  details.level[data-level="p6"] .icon{ background:#ffeef2; }
+  .lesson-card .title{
+    font-size:0.95rem; font-weight:700; text-align:center;
+  }
+  .empty-note{
+    text-align:center; color:var(--muted); padding:12px; font-size:0.95rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:30px 20px 40px;
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  @media (max-width:480px){
+    details.level summary{ padding:16px 18px; font-size:1.05rem; }
+    .level-body{ padding:16px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hat-row" aria-hidden="true">
+      <span class="hat-dot" style="background:#f2f2f2;border:2px solid #ddd;"></span>
+      <span class="hat-dot" style="background:#ff6b6b;"></span>
+      <span class="hat-dot" style="background:#3a3a3a;"></span>
+      <span class="hat-dot" style="background:#ffd166;"></span>
+      <span class="hat-dot" style="background:#63c988;"></span>
+      <span class="hat-dot" style="background:#5fa8cc;"></span>
+    </div>
+    <h1>六顶思考帽（华文口试）</h1>
+    <p class="subtitle">小学华文口试自学网站 · 三年级至六年级</p>
+  </header>
+
+  <section aria-labelledby="intro-title">
+    <h2 class="section-title" id="intro-title">什么是「六顶思考帽」？</h2>
+    <div class="intro-card">
+      <img src="images/six-hats-explained.jpg" alt="六顶思考帽示意图：白帽代表事实（时间、地点、人物、事情），红帽代表感受和看法，黑帽代表坏处，黄帽代表好处，绿帽代表建议，蓝帽代表总结和提出希望">
+      <div class="legend">
+        <span class="chip"><span class="dot white"></span>白帽 · 事实</span>
+        <span class="chip"><span class="dot red"></span>红帽 · 感受+看法</span>
+        <span class="chip"><span class="dot black"></span>黑帽 · 坏处</span>
+        <span class="chip"><span class="dot yellow"></span>黄帽 · 好处</span>
+        <span class="chip"><span class="dot green"></span>绿帽 · 建议</span>
+        <span class="chip"><span class="dot blue"></span>蓝帽 · 总结+提出希望</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="levels-title">
+    <h2 class="section-title" id="levels-title">选择你的年级</h2>
+    <div class="levels" id="levels">
+      <details class="level" data-level="p3">
+        <summary>三年级 Primary 3 <span class="arrow">▶</span></summary>
+        <div class="level-body"><div class="lesson-grid" data-grid="p3"></div></div>
+      </details>
+      <details class="level" data-level="p4">
+        <summary>四年级 Primary 4 <span class="arrow">▶</span></summary>
+        <div class="level-body"><div class="lesson-grid" data-grid="p4"></div></div>
+      </details>
+      <details class="level" data-level="p5">
+        <summary>五年级 Primary 5 <span class="arrow">▶</span></summary>
+        <div class="level-body"><div class="lesson-grid" data-grid="p5"></div></div>
+      </details>
+      <details class="level" data-level="p6">
+        <summary>六年级 Primary 6 <span class="arrow">▶</span></summary>
+        <div class="level-body"><div class="lesson-grid" data-grid="p6"></div></div>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    内容持续更新中，请定期回来查看新的课程 🌟
+  </footer>
+
+  <script src="lessons-data.js"></script>
+  <script>
+    // 把每个年级的课程渲染成卡片
+    (function renderLessons(){
+      var data = window.LESSONS || {};
+      document.querySelectorAll('[data-grid]').forEach(function(grid){
+        var level = grid.getAttribute('data-grid');
+        var lessons = data[level] || [];
+        if(lessons.length === 0){
+          var note = document.createElement('p');
+          note.className = 'empty-note';
+          note.textContent = '课程准备中，敬请期待～';
+          grid.appendChild(note);
+          return;
+        }
+        lessons.forEach(function(lesson){
+          var a = document.createElement('a');
+          a.className = 'lesson-card';
+          a.href = lesson.link || '#';
+          var icon = document.createElement('div');
+          icon.className = 'icon';
+          if(lesson.thumb){
+            var thumbImg = document.createElement('img');
+            thumbImg.src = lesson.thumb;
+            thumbImg.alt = '';
+            icon.appendChild(thumbImg);
+          } else {
+            icon.textContent = lesson.icon || '📘';
+          }
+          var title = document.createElement('div');
+          title.className = 'title';
+          title.textContent = lesson.title || '未命名课程';
+          a.appendChild(icon);
+          a.appendChild(title);
+          grid.appendChild(a);
+        });
+      });
+    })();
+
+    // 手风琴效果：打开一个年级时，自动收起其他年级
+    (function accordion(){
+      var allDetails = document.querySelectorAll('#levels details.level');
+      allDetails.forEach(function(d){
+        d.addEventListener('toggle', function(){
+          if(d.open){
+            allDetails.forEach(function(other){
+              if(other !== d) other.open = false;
+            });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
