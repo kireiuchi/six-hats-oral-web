@@ -17,6 +17,11 @@
                 请先把新的课程文件夹放进 lessons 文件夹里
 
    完成后保存文件，GitHub Pages 网站会在几分钟内自动更新。
+
+   注：网站目前只显示三年级和四年级（2026-09-15 起）。以后如果要
+   恢复五、六年级，除了在这里加回 p5 / p6 的课程数组，还要在
+   index.html 的「选择你的年级」部分加回对应的 <details> 区块
+   （可以参考 git 记录里之前的版本）。
    ============================================================ */
 
 window.LESSONS = {
@@ -30,15 +35,5 @@ window.LESSONS = {
     { title: "春节习俗", icon: "🧧", link: "lessons/coming-soon.html" },
     { title: "我的爱好", icon: "🎨", link: "lessons/coming-soon.html" },
     { title: "拜访亲戚", icon: "🏠", link: "lessons/coming-soon.html" }
-  ],
-  p5: [
-    { title: "环保生活", icon: "🌱", link: "lessons/coming-soon.html" },
-    { title: "社区活动", icon: "🤝", link: "lessons/coming-soon.html" },
-    { title: "健康饮食", icon: "🥗", link: "lessons/coming-soon.html" }
-  ],
-  p6: [
-    { title: "国庆庆典", icon: "🎉", link: "lessons/coming-soon.html" },
-    { title: "科技与生活", icon: "💻", link: "lessons/coming-soon.html" },
-    { title: "未来的梦想", icon: "🌟", link: "lessons/coming-soon.html" }
   ]
 };
