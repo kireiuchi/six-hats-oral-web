@@ -2,101 +2,184 @@
    data.js — 这一课的全部内容都在这里
    ------------------------------------------------------------
    老师如何修改这一课：
-   - title / theme / description → 标题、主题、图片描述
-   - events → 图片里发生的事情（列点显示，可以不填）
-   - image_file → 图片文件名（放在同一个 assets 文件夹里）
-   - hats → 六顶思考帽，每一顶都有：
-       helping_phrases：帮助词语（text 是文字，audio_file 是语音
-                         文件名，没有语音就填 null）
-       model_answer：示范答案文字
-       model_audio_file：示范答案语音文件名，没有就填 null
-   - final_model_answer / final_audio_file → 完整示范答案和语音
 
-   帮助词语的语音（assets/audio/phrases/ 里的文件）目前是用电脑
-   自动生成的语音（espeak-ng），发音正确但听起来比较机械，不是
-   真人录音。以后如果有真人录音，直接把文件放进
-   assets/audio/phrases/ 文件夹，改这里的 audio_file 路径即可。
+   - title / grade_label     → 标题、卡片上的年级/主题标签
+   - image_file / image_alt  → 图片文件名（放在同一个 assets 文件夹
+                                里）、图片的文字说明（给不能看图的
+                                学生朗读用，请照实描述图片内容）
+   - opening_question        → 口试正式的第一道题目
+   - events                  → 图片里可以选来说的几件事，每件事是
+                                一个物件：
+                                  key      → 内部代号（英文，不重复）
+                                  icon     → 表情符号图示
+                                  label    → 按钮上的文字
+                                  positive → true＝这件事是好事（用
+                                             黄帽说好处），false＝
+                                             这件事有问题（用黑帽说
+                                             坏处）
+                                  hats     → white / red / (yellow
+                                             或 black，看 positive
+                                             决定) / green / blue，
+                                             每一顶帽子有：
+                                               prompt   帽子的提示问题
+                                               words    帮助词语（列
+                                                        点，学生点一
+                                                        下就会念出来）
+                                               sentence 建议句型
+                                               answer   示范答案
+
+                                如果两件事的分析内容完全一样（例如
+                                本课的「把脚伸在走道上」跟「边走边
+                                看书」原因很像），可以不写 hats，
+                                改成 sameAs: "另一件事的 key"，
+                                就会直接使用那件事的内容。
+
+   - challenge.question / buddy_quote → 挑战题的题目、口试小伙伴
+                                        鼓励学生换一件事再说一次的话
+   - recording_note          → 录音步骤下方的提醒文字（可以不填，
+                                会用系统默认的提醒文字）
+
+   帽子的固定名称、颜色、绿帽的「三个方向」引导句、口试小伙伴的
+   头像等，每一课都一样，已经写在共用的 lesson.js 里，这里不需
+   要重复。
+
+   语音统一使用浏览器内建的朗读功能（不需要准备任何录音文件）；
+   录音练习则使用浏览器内建的麦克风录音，只能在网站正式上线的网
+   址（https）使用，用 file:// 直接打开网页时无法录音。
    ============================================================ */
 
 window.LESSON = {
   title: "阅读角落123",
-  theme: "培养阅读的good习惯",
-  description: "两名学生在课室的阅读角落里专心看书。",
-  events: [
-    "一个男同学和一个女同学在阅读角落专心看书",
-    "书架上摆满了各种各样的书"
-  ],
-  image_file: "assets/picture.png",
+  grade_label: "小三 · 阅读角落",
+  image_file: "assets/picture.webp",
+  image_alt: "阅读角落口试图片：课室的阅读角落里，一名男同学坐在地上看书并把双脚伸在走道上，一名绑马尾的女同学边走边看书，另外两名女同学坐在地上大声说话，一位学长跑过来提醒她们。",
+  opening_question: "1）谈谈你在图中看到的一件事，并说说你的看法。",
 
-  hats: [
+  events: [
     {
-      hat: "white",
-      helping_phrases: [
-        { text: "有一天早上", audio_file: "assets/audio/phrases/white_1.mp3" },
-        { text: "课室的阅读角落", audio_file: "assets/audio/phrases/white_2.mp3" },
-        { text: "书架上摆满了书", audio_file: "assets/audio/phrases/white_3.mp3" },
-        { text: "一个男同学和一个女同学", audio_file: "assets/audio/phrases/white_4.mp3" },
-        { text: "专心看书", audio_file: "assets/audio/phrases/white_5.mp3" }
-      ],
-      model_answer: "有一天早上，在课室的阅读角落里，一个男同学和一个女同学正在专心看书。书架上摆满了各种各样的书。",
-      model_audio_file: null
+      key: "talk",
+      icon: "🤫",
+      label: "大声说话",
+      positive: false,
+      hats: {
+        white: {
+          prompt: "发生了什么事？先说时间、地点、人物和事情。",
+          words: ["有一天早上", "阅读角落", "两名女同学", "大声说话", "专心看书", "学长", "跑过来提醒"],
+          sentence: "在这张图片中，我看到________。",
+          answer: "在这张图片中，我看到有一天早上，在课室里的阅读角落。阅读角落有两个书架，书架上摆满了书，有一个男同学和一个女同学正在阅读角落里专心看书。有两个女同学坐在地上大声说话。一位学长看到了，立刻跑过来，告诉她们不能大声说话，不然会吵到别人。"
+        },
+        red: {
+          prompt: "看到这一幕，你有什么感受？你怎么看她们的行为？",
+          words: ["看到这一幕", "生气", "行为不对", "有责任感", "保持安静", "专心看书"],
+          sentence: "看到这一幕，我感到________，因为________。同时，我也觉得________。",
+          answer: "看到这一幕，我感到很生气，因为那两名女同学的行为是不对的。同时，我也觉得那位学长很有责任感，阻止她们大声说话，让阅读角落变得安静，这样其他同学就可以专心看书了。"
+        },
+        black: {
+          prompt: "如果她们继续这样做，会有什么坏处或后果？",
+          words: ["影响其他同学阅读", "干扰", "变得吵闹", "无法专心学习", "发生争吵"],
+          sentence: "如果________，就会________。",
+          answer: "如果那两名女同学继续大声说话，就会影响其他同学阅读，也会干扰其他同学。阅读角落会变得吵闹，大家无法专心学习，甚至可能因此发生争吵。"
+        },
+        green: {
+          prompt: "她们应该怎么做？你有什么建议？",
+          words: ["应该", "食堂或走廊", "提醒", "保持安静", "贴上海报", "为别人着想"],
+          sentence: "我认为________应该________。学校也可以________。",
+          answer: "我认为她们应该去食堂或走廊讲话。如果我在场，我也会提醒她们，不可以大声说话。我觉得学校可以在阅读角落贴上“请保持安静”的海报，提醒同学们要为别人着想。"
+        },
+        blue: {
+          prompt: "最后总结一下，并说出你的希望。",
+          words: ["总的来说", "保持安静", "为别人着想", "改掉坏习惯", "我希望"],
+          sentence: "总的来说，________。我希望________。",
+          answer: "总的来说，我们在阅读角落读书应该保持安静，多为别人着想。我希望两位女生能够改掉这个坏习惯。"
+        }
+      }
     },
     {
-      hat: "red",
-      helping_phrases: [
-        { text: "看到这一幕", audio_file: "assets/audio/phrases/red_1.mp3" },
-        { text: "感到开心", audio_file: "assets/audio/phrases/red_2.mp3" },
-        { text: "做得对", audio_file: "assets/audio/phrases/red_3.mp3" },
-        { text: "值得学习", audio_file: "assets/audio/phrases/red_4.mp3" }
-      ],
-      model_answer: "看到这一幕，我感到很开心。我认为他们做得对，值得我们学习。",
-      model_audio_file: null
+      key: "walk",
+      icon: "📖🚶🏻‍♀️",
+      label: "边走边看书",
+      positive: false,
+      hats: {
+        white: {
+          prompt: "发生了什么事？谁在做什么？",
+          words: ["有一天早上", "阅读角落", "戴眼镜的男同学", "双脚伸在走道上", "绑马尾的女同学", "边走边看书", "差点绊倒"],
+          sentence: "在这张图片中，我看到________。",
+          answer: "在这张图片中，我看到有一天早上，在课室的阅读角落里，一名戴眼镜的男同学坐在地上看书。他把双脚伸在走道上，看得十分入神。这时，一名绑着马尾的女同学捧着故事书，边走边看。她没有留意前面的路，经过男同学身边时，差点被他的双脚绊倒。"
+        },
+        red: {
+          prompt: "看到这一幕，你有什么感受和看法？",
+          words: ["看到这一幕", "生气", "担心", "很危险", "没有为别人着想", "注意安全"],
+          sentence: "看到这一幕，我感到________。我认为________，因为________。",
+          answer: "看到这一幕，我感到很生气，也替那名女同学担心。我认为男同学不应该把双脚伸在走道上，因为这样的行为很危险，也没有为别人着想。不过，那名女同学边走边看书，也是不对的，因为她没有注意安全。"
+        },
+        black: {
+          prompt: "这些行为可能带来什么坏处？",
+          words: ["被绊倒", "撞到书架", "撞到同学", "受伤", "损坏书本"],
+          sentence: "如果________，可能会________。这样不但________，还可能________。",
+          answer: "如果男同学继续把双脚伸在走道上，其他同学可能会被绊倒。女同学边走边看书，也可能撞到书架或其他同学。这样不但会使自己和别人受伤，还可能损坏书本。"
+        },
+        green: {
+          prompt: "他们应该怎么做？学校还可以怎么提醒大家？",
+          words: ["把双脚放好", "不要阻挡走道", "停下脚步再看书", "留意前面的路", "贴上告示", "注意安全"],
+          sentence: "我认为________应该________。学校也可以________。",
+          answer: "我认为男同学应该把双脚放好，选择一个不会阻挡走道的地方看书。女同学应该停下脚步再看书，走路时留意前面的路。学校也可以在阅读角落贴上“请为别人着想”和“走路时不要看书”的告示，提醒大家注意安全。"
+        },
+        blue: {
+          prompt: "最后说说你从这件事学到了什么。",
+          words: ["总的来说", "喜欢阅读", "注意安全", "遵守规则", "安全的阅读角落"],
+          sentence: "总的来说，________，但是________。大家________，才会________。",
+          answer: "总的来说，喜欢阅读是一件好事，但是我们也要注意安全。我们不应该把脚伸在走道上，也不应该边走边看书。大家遵守规则，阅读角落才会安全。"
+        }
+      }
     },
     {
-      hat: "yellow",
-      helping_phrases: [
-        { text: "学到新知识", audio_file: "assets/audio/phrases/yellow_1.mp3" },
-        { text: "提高华文水平", audio_file: "assets/audio/phrases/yellow_2.mp3" },
-        { text: "开阔眼界", audio_file: "assets/audio/phrases/yellow_3.mp3" },
-        { text: "阅读的好处", audio_file: "assets/audio/phrases/yellow_4.mp3" }
-      ],
-      model_answer: "阅读可以让我们学到新知识，也可以提高我们的华文水平和开阔眼界。",
-      model_audio_file: null
+      key: "legs",
+      icon: "🦶",
+      label: "把脚伸在走道上",
+      sameAs: "walk"
     },
     {
-      hat: "black",
-      helping_phrases: [
-        { text: "只顾着玩", audio_file: "assets/audio/phrases/black_1.mp3" },
-        { text: "浪费时间", audio_file: "assets/audio/phrases/black_2.mp3" },
-        { text: "失去学习机会", audio_file: "assets/audio/phrases/black_3.mp3" }
-      ],
-      model_answer: "如果我们只顾着玩，就会浪费时间，也会失去学习新知识的机会。",
-      model_audio_file: null
-    },
-    {
-      hat: "green",
-      helping_phrases: [
-        { text: "向他们学习", audio_file: "assets/audio/phrases/green_1.mp3" },
-        { text: "多到阅读角落", audio_file: "assets/audio/phrases/green_2.mp3" },
-        { text: "分享故事", audio_file: "assets/audio/phrases/green_3.mp3" },
-        { text: "爱护书本", audio_file: "assets/audio/phrases/green_4.mp3" }
-      ],
-      model_answer: "我们应该向他们学习，多到阅读角落看书，也可以和同学分享有趣的故事。",
-      model_audio_file: null
-    },
-    {
-      hat: "blue",
-      helping_phrases: [
-        { text: "总的来说", audio_file: "assets/audio/phrases/blue_1.mp3" },
-        { text: "阅读是好事", audio_file: "assets/audio/phrases/blue_2.mp3" },
-        { text: "多看书", audio_file: "assets/audio/phrases/blue_3.mp3" },
-        { text: "养成好习惯", audio_file: "assets/audio/phrases/blue_4.mp3" }
-      ],
-      model_answer: "总的来说，阅读是一件好事。我们应该多看书，养成阅读的好习惯。",
-      model_audio_file: null
+      key: "remind",
+      icon: "👍",
+      label: "提醒同学",
+      positive: true,
+      hats: {
+        white: {
+          prompt: "你看到学长做了什么？",
+          words: ["学长", "看到", "大声说话", "立刻跑过来", "提醒", "保持安静"],
+          sentence: "我看到________。",
+          answer: "我看到一位学长发现两名女同学在阅读角落大声说话后，立刻跑过去提醒她们要保持安静。"
+        },
+        red: {
+          prompt: "你觉得学长的行为怎么样？你有什么感受？",
+          words: ["有责任感", "主动", "关心别人", "值得学习", "我觉得"],
+          sentence: "我觉得________，因为________。",
+          answer: "我觉得那位学长很有责任感，也很值得我们学习，因为他主动提醒同学保持安静，为其他正在阅读的同学着想。"
+        },
+        yellow: {
+          prompt: "学长这样做有什么好处？",
+          words: ["保持安静", "帮助大家", "专心阅读", "维护秩序", "好榜样"],
+          sentence: "这样做可以________，也可以________。",
+          answer: "学长主动提醒同学，可以让阅读角落保持安静，让大家专心阅读。他也为其他同学树立了一个好榜样。"
+        },
+        green: {
+          prompt: "除了提醒同学，还可以怎么做？",
+          words: ["礼貌提醒", "请老师帮忙", "贴上海报", "互相提醒", "为别人着想"],
+          sentence: "我们还可以________。",
+          answer: "我们可以礼貌地提醒同学降低音量，也可以在阅读角落贴上“请保持安静”的海报，让大家记得为别人着想。"
+        },
+        blue: {
+          prompt: "最后总结一下，并说出你的希望。",
+          words: ["总的来说", "主动提醒", "有责任感", "互相提醒", "我希望"],
+          sentence: "总的来说，________。我希望________。",
+          answer: "总的来说，当我们看到不合适的行为时，可以有礼貌地提醒别人。我希望大家都能有责任感，一起保持阅读角落安静。"
+        }
+      }
     }
   ],
 
-  final_model_answer: "有一天早上，在课室的阅读角落里，一个男同学和一个女同学正在专心看书。书架上摆满了各种各样的书。看到这一幕，我感到很开心，因为他们做得对。阅读可以让我们学到新知识，也可以提高我们的华文水平。如果我们只顾着玩，就会失去学习的机会。我们应该向他们学习，多到阅读角落看书，也可以和同学分享有趣的故事。总的来说，阅读是一件好事，我们应该养成阅读的好习惯。",
-  final_audio_file: "assets/audio/final_model.mp3"
+  challenge: {
+    question: "2）除了你所说的那一件事，图中哪一件事也引起你的注意？",
+    buddy_quote: "再仔细看一看。这一次，试着选择另一件事来说吧！"
+  }
 };
