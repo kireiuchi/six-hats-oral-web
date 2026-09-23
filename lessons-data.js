@@ -27,7 +27,7 @@
 window.LESSONS = {
   p3: [
     { title: "阅读角落", thumb: "lessons/p3-reading-corner/assets/thumbnail.jpg", link: "lessons/p3-reading-corner/index.html" },
-    { title: "我的学校", icon: "🏫", link: "lessons/coming-soon.html" },
+    { title: "在学校食堂", thumb: "lessons/p3-school-canteen/assets/thumbnail.jpg", link: "lessons/p3-school-canteen/index.html" },
     { title: "我的家人", icon: "👨‍👩‍👧‍👦", link: "lessons/coming-soon.html" },
     { title: "我的宠物", icon: "🐶", link: "lessons/coming-soon.html" }
   ],
